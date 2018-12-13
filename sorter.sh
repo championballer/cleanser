@@ -14,14 +14,14 @@ else
 	echo unmatched
 fi
 
-for current in $@; do
+for current in *; do
 	if [[ $current = *.txt ]]; then
 
 		if [ -d txt ]; then
-			cp $current txt
+			mv $current txt
 		else
 			mkdir txt
-			cp $current txt	
+			mv $current txt	
 		fi
 	fi
 done
