@@ -1,2 +1,2 @@
 # fileSorter
-Sort files into folders based on some metric
+Sort files into folders based on their extension
