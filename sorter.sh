@@ -25,3 +25,13 @@ for current in *; do
 		fi
 	fi
 done
+
+
+# Build a list of file extensions 
+exts=($(ls | sed 's/^.*\.//' | sort -u))
+
+# Loop through these extensions moving files into subdirectories
+for ext in "${exts[@]}"; do
+	mkdir $ext
+	mv -v *.$ext $ext/
+done
