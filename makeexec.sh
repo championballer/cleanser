@@ -1,11 +1,15 @@
 #!/bin/sh
 
-#usage makeexec [filetype]
+# Usage makeexec [filetype] [directory]
 
-type=$1
+# VARIABLES
+TYPE="$1"
+DIRECTORY="$2"
 
-for file in $(ls | grep $type$); do
-	chmod +x $file
-done
+# TESTS
+[ -z "$TYPE" -o -z "$DIRECTORY" ] && echo "Usage makeexec [filetype] [directory]" && exit 1 # Is null?
+[ ! -d "$DIRECTORY" ] && echo "Directory does not exist." && exit 1
 
-
+# EXECUTION
+find "$DIRECTORY" -iname "*.$TYPE"  \
+									-exec chmod +x {} \;
