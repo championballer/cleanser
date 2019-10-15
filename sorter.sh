@@ -18,10 +18,10 @@ for current in *; do
 	if [[ $current = *.txt ]]; then
 
 		if [ -d txt ]; then
-			mv $current txt
+			mv "$current" txt
 		else
 			mkdir txt
-			mv $current txt	
+			mv "$current" txt	
 		fi
 	fi
 done

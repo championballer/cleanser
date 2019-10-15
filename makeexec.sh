@@ -2,10 +2,4 @@
 
 #usage makeexec [filetype]
 
-type=$1
-
-for file in $(ls | grep $type$); do
-	chmod +x $file
-done
-
-
+find . -type f -name "*$1" -exec chmod +x {} \; 
