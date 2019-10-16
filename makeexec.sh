@@ -8,4 +8,4 @@ FILE_EXTENSION="${2:-sh}" # py? sh?
 
 # EXECUTION
 find "$DIRECTORY" -iname "*.$FILE_EXTENSION" \
-									-exec chmod +x {} \;
+                  -exec chmod +x {} \;
