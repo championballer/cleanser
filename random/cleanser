@@ -34,13 +34,12 @@ function findFiles {
 	
 	FILES=$(find $PWD -name "*$argument")
 	echo $FILES
-	EXT=$(echo $argument | awk -F"." '{print$2}')
-	DIR="$EXT"
+	DIR="$argument"
 
 	if [ ! -d "$DIR" ]; then
   	# Take action if $DIR doesnt exists. #
   	echo "Creating directory to move files to"
-	mkdir -p $DIR
+	mkdir -pv $DIR
 	
 	#Looping through the objects and files to move them 
 	echo "Moving Files to the folder"
