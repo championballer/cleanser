@@ -1,0 +1,93 @@
+#!/bin/bash
+
+# Author : Michael Danckwerts
+
+###################################
+# Defining colours and definitions
+###################################
+
+colred=$(tput setaf 1)    #Red
+colgrn=$(tput setaf 2)    #Green
+colyel=$(tput setaf 3)    #Yellow
+colblu=$(tput setaf 4)    #Blue
+colmag=$(tput setaf 5)    #Magenta
+colcya=$(tput setaf 6)    #Cyan
+reset=$(tput sgr0)	  #Reset
+
+#################################
+# Defining Variables
+################################
+
+##############################
+# Defining Functions
+##############################
+
+function testing {
+	FILES=$(find $PWD -name "*$argument")
+	if [  -z $FILES ]; then
+		echo 'There are files'
+	fi
+}
+
+function findFiles {
+	echo "Finding all files in the directory for the extension $argument"
+	
+	FILES=$(find $PWD -name "*$argument")
+	echo $FILES
+	DIR="$argument"
+
+	if [ ! -d "$DIR" ]; then
+  	# Take action if $DIR doesnt exists. #
+  	echo "Creating directory to move files to"
+	mkdir -pv $DIR
+	
+	#Looping through the objects and files to move them 
+	echo "Moving Files to the folder"
+	for i in $FILES
+	do mv $i $DIR
+	done	
+	echo "File Moving Complete"
+
+	elif [ -d "$DIR" ]; then
+	echo "We should move these files to this directory ${DIR}..."	
+
+	#Looping through the objects and files to move them
+	echo "Moving Files to the folder"
+	for i in $FILES
+	do mv $i $DIR
+	done
+	echo "File Moving Complete"	
+	fi
+}
+
+
+####################
+# Check arguments
+####################
+
+while getopts ":a:b:" opt; do
+  case $opt in
+a)
+      # Finds all files with specified extension and moves them to a folder if it exists. If it doesnt exist then it creates the directory and moves the files
+      argument="$OPTARG"
+      findFiles
+      ;;
+b)   argument="$OPTARG"
+     testing
+	;;     
+\?)
+      echo "Invalid option: -$OPTARG" >&2
+      ;;
+
+:)
+      echo "Option -$OPTARG requires an argument." >&2
+      exit 1
+      ;;
+  esac
+done
+
+if [ $# -eq 0 ]; then
+  echo -e "\nUsage: \n"
+  echo -e "cleanser ${colgrn}[OPTION]${reset} ${colred}ARGUMENTS${reset}\n"
+  echo -e "-a \t Finds all files of a specified extension and moves them to a folder"
+fi
